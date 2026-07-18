@@ -2657,6 +2657,35 @@ section{
 
 /* ---------- Phones (<=768px) ---------- */
 @media (max-width:768px){
+    .fixed-bg{
+        background-image:url("./assets/mobile-bg.png");
+        background-position:center;
+        background-size:cover;
+        background-repeat:no-repeat;
+    }
+
+
+    .navbar{
+        background:#000 !important;
+        backdrop-filter:none !important;
+        -webkit-backdrop-filter:none !important;
+        border-bottom:1px solid rgba(255,255,255,.08);
+    }
+
+    .navbar-collapse{
+        background:#000;
+        padding:1rem;
+        margin-top:.5rem;
+        border-radius:10px;
+    }
+
+    .navbar-toggler{
+        border-color:rgba(255,255,255,.2);
+    }
+
+    .navbar-toggler-icon{
+        filter:invert(1);
+    }
 
     /* Hero title: the desktop clamp() has a fixed minimum size
        (4rem/64px) that ignores viewport width, which pushes
