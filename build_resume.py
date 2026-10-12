@@ -359,7 +359,7 @@ def build_resume(output_pdf_path, preview_png_path=None):
         </p>
         <p>
           <i class="fa-brands fa-linkedin icon-red"></i>
-          <a href="https://linkedin.com/in/aman-sharma">linkedin.com/in/aman-sharma</a>
+          <a href="https://www.linkedin.com/in/aman-sharma-web/">linkedin.com/in/aman-sharma-web</a>
         </p>
         <p>
           <i class="fa-solid fa-location-dot icon-red"></i>
