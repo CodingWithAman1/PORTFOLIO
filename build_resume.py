@@ -32,7 +32,7 @@ def build_resume(output_pdf_path, preview_png_path=None):
     print-color-adjust: exact;
     overflow: hidden;
     font-size: 8.2pt;
-    line-height: 1.32;
+    line-height: 1.34;
   }
 
   .page-container {
@@ -65,7 +65,7 @@ def build_resume(output_pdf_path, preview_png_path=None):
   .header-left .subtitle {
     font-size: 8.5pt;
     font-weight: 700;
-    color: #ef4444; /* Signature Rajat Red */
+    color: #ef4444; /* Signature Red Accent */
     text-transform: uppercase;
     letter-spacing: 0.8px;
     margin-top: 3px;
@@ -107,7 +107,7 @@ def build_resume(output_pdf_path, preview_png_path=None):
     text-align: center;
   }
 
-  /* Section Title - Rajat Monospace Style */
+  /* Section Title - Monospace Style */
   .section-title {
     font-size: 8.2pt;
     font-weight: 700;
@@ -118,7 +118,7 @@ def build_resume(output_pdf_path, preview_png_path=None):
     border-bottom: 1.2px solid #d4d4d4;
     padding-bottom: 2.5px;
     margin-bottom: 6px;
-    margin-top: 7px;
+    margin-top: 7.5px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -130,7 +130,7 @@ def build_resume(output_pdf_path, preview_png_path=None):
   /* Content Text */
   .objective-text {
     font-size: 7.6pt;
-    line-height: 1.38;
+    line-height: 1.4;
     color: #404040;
     text-align: justify;
   }
@@ -142,7 +142,7 @@ def build_resume(output_pdf_path, preview_png_path=None):
   .edu-item {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     margin-bottom: 5px;
   }
   .edu-item:last-child {
@@ -170,7 +170,7 @@ def build_resume(output_pdf_path, preview_png_path=None):
     color: #262626;
     background-color: #f5f5f5;
     border: 1px solid #e5e5e5;
-    padding: 1.5px 7px;
+    padding: 2px 8px;
     border-radius: 4px;
     white-space: nowrap;
   }
@@ -179,7 +179,7 @@ def build_resume(output_pdf_path, preview_png_path=None):
   .skills-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3.5px 14px;
+    gap: 4px 14px;
     font-size: 7.4pt;
   }
   .skill-row {
@@ -220,7 +220,7 @@ def build_resume(output_pdf_path, preview_png_path=None):
     font-weight: 600;
   }
   .proj-links a {
-    color: #ef4444; /* Rajat Red Accent */
+    color: #ef4444; /* Signature Red Accent */
     text-decoration: none;
     margin-left: 6px;
   }
@@ -241,7 +241,7 @@ def build_resume(output_pdf_path, preview_png_path=None):
     position: relative;
     padding-left: 11px;
     font-size: 7.2pt;
-    line-height: 1.32;
+    line-height: 1.34;
     color: #404040;
     margin-bottom: 1.5px;
     text-align: justify;
@@ -268,7 +268,7 @@ def build_resume(output_pdf_path, preview_png_path=None):
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 1px;
+    margin-bottom: 1.5px;
   }
   .exp-title {
     font-size: 8.2pt;
@@ -284,7 +284,7 @@ def build_resume(output_pdf_path, preview_png_path=None):
   .cert-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2.5px 12px;
+    gap: 3px 12px;
     font-size: 7.2pt;
     color: #404040;
   }
@@ -325,12 +325,12 @@ def build_resume(output_pdf_path, preview_png_path=None):
 <div class="page-container">
 
   <div>
-    <!-- RESUME HEADER (Rajat Sahu Signature Style) -->
+    <!-- RESUME HEADER -->
     <header class="resume-header">
       <div class="header-left">
         <h1>AMAN SHARMA</h1>
         <div class="subtitle">B.Tech CSE Student &bull; Full-Stack Software Developer</div>
-        <div class="college-tag">G.L. Bajaj Group of Institutions, Mathura &bull; AKTU University</div>
+        <div class="college-tag">GL Bajaj Institute of Technology and Management, Greater Noida</div>
       </div>
 
       <div class="header-right">
@@ -360,7 +360,7 @@ def build_resume(output_pdf_path, preview_png_path=None):
         </p>
         <p>
           <i class="fa-solid fa-location-dot icon-red"></i>
-          Mathura &amp; Lucknow, Uttar Pradesh, India
+          Greater Noida &amp; Lucknow, Uttar Pradesh, India
         </p>
       </div>
     </header>
@@ -369,7 +369,7 @@ def build_resume(output_pdf_path, preview_png_path=None):
     <section>
       <h2 class="section-title">Professional Objective</h2>
       <p class="objective-text">
-        Proactive <b>B.Tech Computer Science Engineering student</b> at G.L. Bajaj Group of Institutions with hands-on expertise building production web platforms, transactional database architectures, and AI-integrated workflows. Proven track record deploying live, full-stack cloud applications (<b>CivicConnect</b>, <b>Inventra</b>) with automated triage, RESTful APIs, and responsive interfaces. Dedicated to engineering scalable, high-impact software solutions within innovative engineering teams.
+        Proactive <b>B.Tech Computer Science Engineering student</b> at GL Bajaj Institute of Technology and Management, Greater Noida, with hands-on expertise building production web platforms, transactional database architectures, and AI-integrated workflows. Proven track record deploying live, full-stack cloud applications (<b>CivicConnect</b>, <b>Inventra</b>, <b>MyRail</b>) with automated triage, RESTful APIs, and responsive interfaces. Dedicated to engineering scalable, high-impact software solutions within innovative engineering teams.
       </p>
     </section>
 
@@ -381,12 +381,11 @@ def build_resume(output_pdf_path, preview_png_path=None):
       <div class="edu-item">
         <div>
           <div class="edu-title">Bachelor of Technology (B.Tech) in Computer Science &amp; Engineering</div>
-          <div class="edu-sub">G.L. Bajaj Group of Institutions, Mathura (AKTU)</div>
+          <div class="edu-sub">GL Bajaj Institute of Technology and Management, Greater Noida</div>
           <div class="edu-details">Core Coursework: Operating Systems, DBMS, OOP, Data Structures &amp; Algorithms, Computer Networks</div>
         </div>
         <div style="text-align: right;">
-          <span class="badge-pill">2022 &ndash; 2026</span>
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 6.8pt; color: #ef4444; font-weight: 700; margin-top: 1.5px;">CGPA: 7.8 / 10</div>
+          <span class="badge-pill">2025 &ndash; 2029</span>
         </div>
       </div>
 
@@ -398,7 +397,6 @@ def build_resume(output_pdf_path, preview_png_path=None):
         </div>
         <div style="text-align: right;">
           <span class="badge-pill">2024</span>
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 6.8pt; color: #525252; font-weight: 600; margin-top: 1.5px;">Score: 78%</div>
         </div>
       </div>
 
@@ -410,7 +408,6 @@ def build_resume(output_pdf_path, preview_png_path=None):
         </div>
         <div style="text-align: right;">
           <span class="badge-pill">2022</span>
-          <div style="font-family: 'JetBrains Mono', monospace; font-size: 6.8pt; color: #525252; font-weight: 600; margin-top: 1.5px;">Score: 82%</div>
         </div>
       </div>
     </section>
@@ -429,11 +426,11 @@ def build_resume(output_pdf_path, preview_png_path=None):
         </div>
         <div class="skill-row">
           <span class="skill-label">Databases &amp; ORM:</span>
-          <span class="skill-val">PostgreSQL, Neon DB, SQLite, SQLAlchemy 2.0 (Relational Schemas)</span>
+          <span class="skill-val">PostgreSQL, SQLite, SQLAlchemy 2.0 (Relational Schemas)</span>
         </div>
         <div class="skill-row">
           <span class="skill-label">Cloud, AI &amp; DevOps:</span>
-          <span class="skill-val">Gemini Vision AI, Vercel Serverless, Render, Git, GitHub, Linux/Bash</span>
+          <span class="skill-val">Gemini Vision AI, Vercel Serverless, Render, Git, GitHub, Postman</span>
         </div>
       </div>
     </section>
@@ -469,12 +466,12 @@ def build_resume(output_pdf_path, preview_png_path=None):
             <a href="https://github.com/CodingWithAman1/Inventra"><i class="fa-brands fa-github"></i> GitHub</a>
           </span>
         </div>
-        <div class="proj-tech">Flask &bull; SQLAlchemy 2.0 &bull; Neon PostgreSQL &bull; Chart.js &bull; Vercel Serverless WSGI</div>
+        <div class="proj-tech">Flask &bull; SQLAlchemy 2.0 &bull; PostgreSQL &bull; Chart.js &bull; Vercel Serverless WSGI</div>
         <ul class="proj-bullets">
           <li><b>Engineered production warehouse inventory system</b> with real-time stock monitoring, automated low-inventory reorder alerts, and supplier directories.</li>
           <li><b>Built ACID-compliant relational audit trails</b> recording immutable delta history for every inventory transaction (+/- adjustments).</li>
           <li><b>Designed interactive Chart.js dashboards</b> delivering warehouse asset valuation, monthly movement graphs, and dynamic CSV exports.</li>
-          <li><b>Architected serverless WSGI microservice on Vercel</b> connected to Neon cloud PostgreSQL with connection pooling.</li>
+          <li><b>Architected serverless WSGI microservice on Vercel</b> with PostgreSQL cloud database connection pooling.</li>
         </ul>
       </div>
 
@@ -483,6 +480,7 @@ def build_resume(output_pdf_path, preview_png_path=None):
         <div class="proj-header">
           <span class="proj-title">MYRAIL &mdash; Real-Time Indian Railway PNR &amp; Live Train Tracking</span>
           <span class="proj-links">
+            <a href="https://myrailbase.netlify.app/"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
             <a href="https://github.com/CodingWithAman1/myrail"><i class="fa-brands fa-github"></i> GitHub</a>
           </span>
         </div>
@@ -535,10 +533,10 @@ def build_resume(output_pdf_path, preview_png_path=None):
           <b>Cisco CyberSecurity &amp; AI</b> &mdash; <span>AI &amp; Security Learn-a-Thon</span>
         </div>
         <div class="cert-item">
-          <b>Smart India Hackathon (SIH) Internal</b> &mdash; <span>AI civic grievance dispatch prototype</span>
+          <b>Algorithmic Problem Solving</b> &mdash; <span>200+ DSA problems solved on LeetCode</span>
         </div>
         <div class="cert-item">
-          <b>Algorithmic Problem Solving</b> &mdash; <span>150+ DSA problems solved (LeetCode &amp; HackerRank)</span>
+          <b>Cloud Deployments</b> &mdash; <span>4 live full-stack applications on Vercel, Render &amp; Netlify</span>
         </div>
       </div>
     </section>
