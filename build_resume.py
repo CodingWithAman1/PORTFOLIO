@@ -2,15 +2,16 @@ import os
 import subprocess
 import pymupdf
 
-def build_futuristic_resume(output_pdf_path, preview_png_path=None):
+def build_resume(output_pdf_path, preview_png_path=None):
     html_content = """<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Aman Sharma - Futuristic Resume</title>
+<title>Aman Sharma - Resume</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
   @page {
     size: letter portrait;
@@ -24,848 +25,538 @@ def build_futuristic_resume(output_pdf_path, preview_png_path=None):
   html, body {
     width: 8.5in;
     height: 11in;
-    background-color: #030712;
-    color: #cbd5e1;
+    background-color: #ffffff;
+    color: #171717;
     font-family: 'Plus Jakarta Sans', -apple-system, sans-serif;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
     overflow: hidden;
-    position: relative;
     font-size: 8.2pt;
-    line-height: 1.25;
+    line-height: 1.32;
   }
 
-  /* Cyber Grid Background */
-  body::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background-image: 
-      linear-gradient(to right, rgba(56, 189, 248, 0.03) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(56, 189, 248, 0.03) 1px, transparent 1px);
-    background-size: 20px 20px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .container {
-    position: relative;
-    z-index: 1;
-    padding: 0.28in 0.32in;
+  .page-container {
+    padding: 0.38in 0.44in;
     height: 11in;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
   }
 
-  /* Telemetry Bar */
-  .hud-bar {
+  /* Header - Rajat Sahu Signature Style */
+  .resume-header {
+    border-bottom: 2.5px solid #171717;
+    padding-bottom: 11px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid rgba(56, 189, 248, 0.2);
-    padding-bottom: 5px;
-    margin-bottom: 8px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 6.2pt;
-    color: #64748b;
-    letter-spacing: 0.5px;
-  }
-  .hud-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 4px;
-    background: rgba(16, 185, 129, 0.1);
-    color: #34d399;
-    border: 1px solid rgba(16, 185, 129, 0.3);
-    padding: 1.5px 6px;
-    border-radius: 999px;
-    font-weight: 600;
-  }
-  .hud-dot {
-    width: 5px;
-    height: 5px;
-    border-radius: 50%;
-    background: #10b981;
-    box-shadow: 0 0 6px #10b981;
+    align-items: flex-start;
   }
 
-  /* Header Section */
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(10, 15, 29, 0.95) 100%);
-    border: 1px solid rgba(56, 189, 248, 0.25);
-    border-radius: 8px;
-    padding: 10px 14px;
-    box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5);
-    margin-bottom: 9px;
-  }
-  .header-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .avatar-card {
-    width: 46px;
-    height: 46px;
-    border-radius: 8px;
-    background: linear-gradient(135deg, #0284c7 0%, #4f46e5 100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Space Grotesk', sans-serif;
+  .header-left h1 {
+    font-size: 22pt;
     font-weight: 800;
-    font-size: 15pt;
-    color: #ffffff;
-    box-shadow: 0 0 16px rgba(14, 165, 233, 0.45);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    flex-shrink: 0;
-  }
-  .avatar-card span {
-    font-size: 4.8pt;
-    font-family: 'JetBrains Mono', monospace;
-    opacity: 0.85;
-    margin-top: -2px;
-    letter-spacing: 0.5px;
-  }
-  .name-block h1 {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 18pt;
-    font-weight: 700;
-    color: #ffffff;
-    letter-spacing: -0.3px;
+    text-transform: uppercase;
+    letter-spacing: -0.5px;
+    color: #171717;
     line-height: 1.05;
-    background: linear-gradient(90deg, #ffffff 0%, #38bdf8 65%, #818cf8 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
   }
-  .name-block .role {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 7.2pt;
+
+  .header-left .subtitle {
+    font-size: 8.5pt;
     font-weight: 700;
-    color: #38bdf8;
-    letter-spacing: 0.5px;
-    margin-top: 2px;
+    color: #ef4444; /* Signature Rajat Red */
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-top: 3px;
   }
-  .name-block .tagline {
-    font-size: 6.8pt;
-    color: #94a3b8;
-    margin-top: 1px;
+
+  .header-left .college-tag {
+    font-size: 7.2pt;
+    color: #525252;
+    margin-top: 2px;
+    font-weight: 500;
   }
 
   .header-right {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4px 10px;
-    font-size: 6.8pt;
+    text-align: right;
     font-family: 'JetBrains Mono', monospace;
-  }
-  .contact-item {
+    font-size: 7pt;
+    color: #525252;
     display: flex;
-    align-items: center;
-    gap: 6px;
-    color: #94a3b8;
+    flex-direction: column;
+    gap: 2.5px;
   }
-  .contact-item a {
-    color: #38bdf8;
+
+  .header-right a {
+    color: #525252;
     text-decoration: none;
-    font-weight: 500;
+    transition: color 0.2s;
   }
-  .contact-item.wa a {
-    color: #34d399;
-    font-weight: 700;
-  }
-  .icon-svg {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+  .header-right a:hover {
+    color: #ef4444;
+    text-decoration: underline;
   }
 
-  /* Metrics Ribbon */
-  .metrics-ribbon {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 7px;
-    margin-bottom: 9px;
-  }
-  .metric-card {
-    background: rgba(15, 23, 42, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 6px;
-    padding: 5px 8px;
-    display: flex;
-    align-items: center;
-    gap: 7px;
-  }
-  .metric-num {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 11pt;
-    font-weight: 700;
-    color: #38bdf8;
-    line-height: 1;
-  }
-  .metric-label {
-    font-size: 5.8pt;
-    font-family: 'JetBrains Mono', monospace;
-    color: #94a3b8;
-    line-height: 1.15;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
+  .icon-red {
+    color: #ef4444;
+    margin-right: 4px;
+    font-size: 7.5pt;
+    width: 11px;
+    display: inline-block;
+    text-align: center;
   }
 
-  /* Main Grid */
-  .main-grid {
-    display: grid;
-    grid-template-columns: 2.35in 1fr;
-    gap: 10px;
-    flex: 1;
-  }
-
-  /* Section Styles */
+  /* Section Title - Rajat Monospace Style */
   .section-title {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 7.4pt;
+    font-size: 8.2pt;
     font-weight: 700;
-    color: #ffffff;
+    font-family: 'JetBrains Mono', monospace;
     text-transform: uppercase;
-    letter-spacing: 0.6px;
+    letter-spacing: 0.8px;
+    color: #171717;
+    border-bottom: 1.2px solid #d4d4d4;
+    padding-bottom: 2.5px;
+    margin-bottom: 6px;
+    margin-top: 7px;
     display: flex;
     align-items: center;
-    gap: 5px;
-    margin-bottom: 5px;
+    justify-content: space-between;
   }
-  .section-title::before {
-    content: '//';
-    color: #0284c7;
-    font-weight: 800;
-  }
-  .section-title::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, rgba(56, 189, 248, 0.3) 0%, transparent 100%);
-    margin-left: 4px;
+  .section-title:first-of-type {
+    margin-top: 0;
   }
 
-  /* Left Column Cards */
-  .side-card {
-    background: rgba(15, 23, 42, 0.55);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 6px;
-    padding: 6px 8px;
-    margin-bottom: 7px;
+  /* Content Text */
+  .objective-text {
+    font-size: 7.6pt;
+    line-height: 1.38;
+    color: #404040;
+    text-align: justify;
   }
-  .skill-group {
-    margin-bottom: 4px;
-  }
-  .skill-group:last-child {
-    margin-bottom: 0;
-  }
-  .skill-cat {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 6.2pt;
-    font-weight: 700;
-    color: #38bdf8;
-    text-transform: uppercase;
-    letter-spacing: 0.3px;
-    margin-bottom: 2px;
-  }
-  .skill-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 3px;
-  }
-  .tag {
-    background: rgba(30, 41, 59, 0.8);
-    border: 1px solid rgba(56, 189, 248, 0.2);
-    color: #e2e8f0;
-    font-size: 5.9pt;
-    padding: 1px 4.5px;
-    border-radius: 3px;
-    font-family: 'JetBrains Mono', monospace;
-  }
-  .tag.hot {
-    background: rgba(14, 165, 233, 0.15);
-    border-color: rgba(56, 189, 248, 0.5);
-    color: #38bdf8;
-    font-weight: 600;
+  .objective-text b {
+    color: #171717;
   }
 
-  /* Education Item */
+  /* Education Items */
   .edu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
     margin-bottom: 5px;
-    padding-left: 6px;
-    border-left: 2px solid rgba(56, 189, 248, 0.3);
   }
   .edu-item:last-child {
     margin-bottom: 0;
   }
-  .edu-deg {
-    font-size: 6.8pt;
-    font-weight: 700;
-    color: #f1f5f9;
-  }
-  .edu-inst {
-    font-size: 6.2pt;
-    color: #94a3b8;
-  }
-  .edu-meta {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 5.8pt;
-    color: #38bdf8;
-  }
-
-  /* Certifications */
-  .cert-item {
-    display: flex;
-    align-items: baseline;
-    gap: 4px;
-    font-size: 6.2pt;
-    margin-bottom: 3px;
-    color: #cbd5e1;
-  }
-  .cert-item::before {
-    content: '›';
-    color: #34d399;
+  .edu-title {
     font-size: 8pt;
     font-weight: 700;
+    color: #171717;
   }
-  .cert-meta {
-    color: #64748b;
-    font-size: 5.6pt;
+  .edu-sub {
+    font-size: 7.2pt;
+    color: #525252;
+    font-weight: 500;
+  }
+  .edu-details {
+    font-size: 6.8pt;
+    color: #737373;
     font-family: 'JetBrains Mono', monospace;
   }
+  .badge-pill {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 7pt;
+    font-weight: 600;
+    color: #262626;
+    background-color: #f5f5f5;
+    border: 1px solid #e5e5e5;
+    padding: 1.5px 7px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
 
-  /* Cyber Launchpad Links */
-  .launchpad-grid {
+  /* Skills Grid */
+  .skills-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4px;
+    gap: 3.5px 14px;
+    font-size: 7.4pt;
   }
-  .launch-link {
+  .skill-row {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: rgba(30, 41, 59, 0.6);
-    border: 1px solid rgba(56, 189, 248, 0.25);
-    border-radius: 4px;
-    padding: 3px 5px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 5.8pt;
-    color: #38bdf8;
-    text-decoration: none;
-    font-weight: 600;
+    align-items: baseline;
   }
-  .launch-link.green {
-    border-color: rgba(16, 185, 129, 0.3);
-    color: #34d399;
-    background: rgba(16, 185, 129, 0.08);
+  .skill-label {
+    font-weight: 700;
+    color: #171717;
+    white-space: nowrap;
+    margin-right: 5px;
   }
-  .launch-link span {
-    font-size: 7pt;
+  .skill-val {
+    color: #404040;
   }
 
-  /* Right Column (Cyberdeck) */
-  .summary-card {
-    background: linear-gradient(135deg, rgba(15, 23, 42, 0.7) 0%, rgba(30, 41, 59, 0.4) 100%);
-    border: 1px solid rgba(56, 189, 248, 0.25);
-    border-left: 3px solid #0284c7;
-    border-radius: 6px;
-    padding: 5px 8px;
-    margin-bottom: 7px;
-    font-size: 6.8pt;
-    line-height: 1.35;
-    color: #cbd5e1;
+  /* Project Entries */
+  .project-entry {
+    margin-bottom: 6px;
   }
-  .summary-card b {
-    color: #f8fafc;
+  .project-entry:last-child {
+    margin-bottom: 0;
   }
-
-  /* Project Cards */
-  .project-card {
-    background: rgba(15, 23, 42, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 6px;
-    padding: 5px 8px;
-    margin-bottom: 5.5px;
-    position: relative;
-  }
-  .project-header {
+  .proj-header {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 2px;
-  }
-  .proj-title-wrap {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    margin-bottom: 1.5px;
   }
   .proj-title {
-    font-family: 'Space Grotesk', sans-serif;
     font-size: 8.2pt;
     font-weight: 700;
-    color: #ffffff;
-    letter-spacing: -0.2px;
+    color: #171717;
   }
-  .proj-badge {
-    background: rgba(56, 189, 248, 0.12);
-    border: 1px solid rgba(56, 189, 248, 0.35);
-    color: #38bdf8;
+  .proj-links {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 5.2pt;
-    font-weight: 700;
-    padding: 1px 4px;
-    border-radius: 3px;
-    text-transform: uppercase;
-  }
-  .proj-actions {
-    display: flex;
-    gap: 5px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 6.2pt;
-  }
-  .btn-live {
-    background: rgba(14, 165, 233, 0.18);
-    border: 1px solid #0284c7;
-    color: #38bdf8;
-    text-decoration: none;
-    padding: 1.5px 6px;
-    border-radius: 3px;
-    font-weight: 700;
-  }
-  .btn-code {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #94a3b8;
-    text-decoration: none;
-    padding: 1.5px 5px;
-    border-radius: 3px;
+    font-size: 7pt;
     font-weight: 600;
+  }
+  .proj-links a {
+    color: #ef4444; /* Rajat Red Accent */
+    text-decoration: none;
+    margin-left: 6px;
+  }
+  .proj-links a:hover {
+    text-decoration: underline;
   }
   .proj-tech {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 5.8pt;
-    color: #818cf8;
-    margin-bottom: 2.5px;
+    font-size: 6.7pt;
+    color: #525252;
+    margin-bottom: 2px;
   }
-  .bullet-list {
+  .proj-bullets {
     list-style: none;
+    padding-left: 0;
   }
-  .bullet-list li {
+  .proj-bullets li {
     position: relative;
-    padding-left: 9px;
-    font-size: 6.5pt;
-    line-height: 1.3;
-    color: #94a3b8;
+    padding-left: 11px;
+    font-size: 7.2pt;
+    line-height: 1.32;
+    color: #404040;
     margin-bottom: 1.5px;
+    text-align: justify;
   }
-  .bullet-list li::before {
-    content: '▹';
+  .proj-bullets li::before {
+    content: '•';
     position: absolute;
-    left: 0;
-    color: #38bdf8;
-    font-size: 7.5pt;
+    left: 2px;
+    color: #ef4444; /* Signature red bullet */
+    font-weight: bold;
+    font-size: 9pt;
+    line-height: 1;
   }
-  .bullet-list li b {
-    color: #e2e8f0;
+  .proj-bullets li b {
+    color: #171717;
     font-weight: 600;
   }
 
-  /* Experience Card */
-  .exp-card {
-    background: rgba(15, 23, 42, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 6px;
-    padding: 5px 8px;
-    margin-bottom: 5.5px;
+  /* Work Experience */
+  .exp-entry {
+    margin-bottom: 5px;
   }
   .exp-header {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 2px;
+    margin-bottom: 1px;
   }
-  .exp-role {
-    font-family: 'Space Grotesk', sans-serif;
-    font-size: 7.8pt;
+  .exp-title {
+    font-size: 8.2pt;
     font-weight: 700;
-    color: #ffffff;
+    color: #171717;
   }
-  .exp-comp {
-    color: #38bdf8;
+  .exp-company {
+    color: #ef4444;
     font-weight: 600;
   }
-  .exp-date {
+
+  /* Certifications & Achievements */
+  .cert-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5px 12px;
+    font-size: 7.2pt;
+    color: #404040;
+  }
+  .cert-item {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+  .cert-item::before {
+    content: '•';
+    color: #ef4444;
+    font-weight: bold;
+    font-size: 8.5pt;
+  }
+  .cert-item b {
+    color: #171717;
+  }
+  .cert-item span {
+    color: #737373;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 6pt;
-    color: #34d399;
+    font-size: 6.6pt;
   }
 
-  /* Milestones */
-  .milestones-card {
-    background: rgba(15, 23, 42, 0.6);
-    border: 1px solid rgba(255, 255, 255, 0.07);
-    border-radius: 6px;
-    padding: 4px 8px;
-  }
-
-  /* Footer Tech Stamp */
-  .tech-footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.06);
-    padding-top: 3px;
+  /* Bottom Stamp */
+  .resume-footer {
+    border-top: 1px solid #e5e5e5;
+    padding-top: 4px;
+    margin-top: 6px;
     display: flex;
     justify-content: space-between;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 5.5pt;
-    color: #475569;
-    letter-spacing: 0.5px;
+    font-size: 6pt;
+    color: #737373;
   }
 </style>
 </head>
 <body>
-<div class="container">
+<div class="page-container">
 
-  <!-- TOP TELEMETRY BAR -->
-  <div class="hud-bar">
-    <div>SYS_ID: AMAN-SHARMA // ARCH: FULL-STACK-AI // NODE: 27.4924° N, 77.6737° E (IN)</div>
-    <div class="hud-badge"><span class="hud-dot"></span> OPEN FOR SOFTWARE ENGINEERING ROLES</div>
-    <div>COMPILED: 2026.10 // VER: 4.2-FUTURISTIC</div>
-  </div>
-
-  <!-- HERO HEADER -->
-  <header class="header">
-    <div class="header-left">
-      <div class="avatar-card">
-        AS
-        <span>DEV-01</span>
-      </div>
-      <div class="name-block">
+  <div>
+    <!-- RESUME HEADER (Rajat Sahu Signature Style) -->
+    <header class="resume-header">
+      <div class="header-left">
         <h1>AMAN SHARMA</h1>
-        <div class="role">&lt;FULL_STACK_SOFTWARE_ENGINEER :: AI_&amp;_CLOUD_SYSTEMS /&gt;</div>
-        <div class="tagline">B.Tech CSE &bull; Specialized in Python (Flask), Neon PostgreSQL, RESTful APIs &amp; Gemini AI Vision</div>
+        <div class="subtitle">B.Tech CSE Student &bull; Full-Stack Software Developer</div>
+        <div class="college-tag">G.L. Bajaj Group of Institutions, Mathura &bull; AKTU University</div>
       </div>
-    </div>
-    <div class="header-right">
-      <div class="contact-item">
-        <span class="icon-svg">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-        </span>
-        <a href="tel:+919690683156">+91-9690683156</a>
-      </div>
-      <div class="contact-item wa">
-        <span class="icon-svg">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-        </span>
-        <a href="https://wa.me/919690683156">WhatsApp Direct</a>
-      </div>
-      <div class="contact-item">
-        <span class="icon-svg">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-        </span>
-        <a href="mailto:codewithaman88@gmail.com">codewithaman88@gmail.com</a>
-      </div>
-      <div class="contact-item">
-        <span class="icon-svg">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-        </span>
-        <a href="https://codingwithaman1.github.io/PORTFOLIO/">codingwithaman1.github.io</a>
-      </div>
-      <div class="contact-item">
-        <span class="icon-svg">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-        </span>
-        <a href="https://github.com/CodingWithAman1">gh/CodingWithAman1</a>
-      </div>
-      <div class="contact-item">
-        <span class="icon-svg">
-          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-        </span>
-        <a href="https://linkedin.com/in/aman-sharma">in/aman-sharma</a>
-      </div>
-    </div>
-  </header>
 
-  <!-- METRICS HUD RIBBON -->
-  <div class="metrics-ribbon">
-    <div class="metric-card">
-      <div class="metric-num">04+</div>
-      <div class="metric-label">Live Production<br/>Cloud Platforms</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-num">150+</div>
-      <div class="metric-label">Algorithmic<br/>Problems Solved</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-num">7.8</div>
-      <div class="metric-label">B.Tech CGPA<br/>AKTU University</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-num">90h</div>
-      <div class="metric-label">Reliance &amp; NSDC<br/>Python Certified</div>
-    </div>
-  </div>
+      <div class="header-right">
+        <p>
+          <i class="fa-solid fa-phone icon-red"></i>
+          <a href="tel:+919690683156">+91-9690683156</a>
+        </p>
+        <p>
+          <i class="fa-brands fa-whatsapp icon-red"></i>
+          <a href="https://wa.me/919690683156">WhatsApp: +91-9690683156</a>
+        </p>
+        <p>
+          <i class="fa-solid fa-envelope icon-red"></i>
+          <a href="mailto:codewithaman88@gmail.com">codewithaman88@gmail.com</a>
+        </p>
+        <p>
+          <i class="fa-solid fa-globe icon-red"></i>
+          <a href="https://codingwithaman1.github.io/PORTFOLIO/">codingwithaman1.github.io/PORTFOLIO</a>
+        </p>
+        <p>
+          <i class="fa-brands fa-github icon-red"></i>
+          <a href="https://github.com/CodingWithAman1">github.com/CodingWithAman1</a>
+        </p>
+        <p>
+          <i class="fa-brands fa-linkedin icon-red"></i>
+          <a href="https://linkedin.com/in/aman-sharma">linkedin.com/in/aman-sharma</a>
+        </p>
+        <p>
+          <i class="fa-solid fa-location-dot icon-red"></i>
+          Mathura &amp; Lucknow, Uttar Pradesh, India
+        </p>
+      </div>
+    </header>
 
-  <!-- MAIN TWO-COLUMN CYBER GRID -->
-  <div class="main-grid">
+    <!-- PROFESSIONAL OBJECTIVE -->
+    <section>
+      <h2 class="section-title">Professional Objective</h2>
+      <p class="objective-text">
+        Proactive <b>B.Tech Computer Science Engineering student</b> at G.L. Bajaj Group of Institutions with hands-on expertise building production web platforms, transactional database architectures, and AI-integrated workflows. Proven track record deploying live, full-stack cloud applications (<b>CivicConnect</b>, <b>Inventra</b>) with automated triage, RESTful APIs, and responsive interfaces. Dedicated to engineering scalable, high-impact software solutions within innovative engineering teams.
+      </p>
+    </section>
 
-    <!-- LEFT COLUMN: SYSTEM DATA -->
-    <div class="left-col">
-
-      <!-- SKILL MATRIX -->
-      <div class="section-title">Tech Matrix</div>
-      <div class="side-card">
-        <div class="skill-group">
-          <div class="skill-cat">Core Languages</div>
-          <div class="skill-tags">
-            <span class="tag hot">Python</span>
-            <span class="tag hot">JavaScript (ES6+)</span>
-            <span class="tag">SQL</span>
-            <span class="tag">C</span>
-            <span class="tag">HTML5 / CSS3</span>
-          </div>
+    <!-- EDUCATION -->
+    <section>
+      <h2 class="section-title">Education</h2>
+      
+      <!-- B.Tech -->
+      <div class="edu-item">
+        <div>
+          <div class="edu-title">Bachelor of Technology (B.Tech) in Computer Science &amp; Engineering</div>
+          <div class="edu-sub">G.L. Bajaj Group of Institutions, Mathura (AKTU)</div>
+          <div class="edu-details">Core Coursework: Operating Systems, DBMS, OOP, Data Structures &amp; Algorithms, Computer Networks</div>
         </div>
-        <div class="skill-group" style="margin-top: 3px;">
-          <div class="skill-cat">Backend &amp; Frameworks</div>
-          <div class="skill-tags">
-            <span class="tag hot">Flask 3.x</span>
-            <span class="tag">RESTful APIs</span>
-            <span class="tag">Jinja2</span>
-            <span class="tag">Chart.js</span>
-            <span class="tag">Tailwind CSS</span>
-            <span class="tag">Bootstrap 5</span>
-          </div>
-        </div>
-        <div class="skill-group" style="margin-top: 3px;">
-          <div class="skill-cat">Databases &amp; ORM</div>
-          <div class="skill-tags">
-            <span class="tag hot">PostgreSQL</span>
-            <span class="tag hot">Neon Cloud DB</span>
-            <span class="tag">SQLAlchemy 2.0</span>
-            <span class="tag">SQLite</span>
-          </div>
-        </div>
-        <div class="skill-group" style="margin-top: 3px;">
-          <div class="skill-cat">AI, Cloud &amp; DevOps</div>
-          <div class="skill-tags">
-            <span class="tag hot">Gemini Vision AI</span>
-            <span class="tag">Vercel Serverless</span>
-            <span class="tag">Render Cloud</span>
-            <span class="tag">Git / GitHub</span>
-            <span class="tag">Linux / Bash</span>
-            <span class="tag">Postman</span>
-          </div>
+        <div style="text-align: right;">
+          <span class="badge-pill">2022 &ndash; 2026</span>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 6.8pt; color: #ef4444; font-weight: 700; margin-top: 1.5px;">CGPA: 7.8 / 10</div>
         </div>
       </div>
 
-      <!-- CORE COMPETENCIES -->
-      <div class="section-title">Competencies</div>
-      <div class="side-card">
-        <div style="font-size: 6.3pt; line-height: 1.4; color: #cbd5e1;">
-          <div><span style="color:#38bdf8;">⚡</span> Full-Stack Web Architecture</div>
-          <div><span style="color:#38bdf8;">⚡</span> Multimodal AI Vision Integration</div>
-          <div><span style="color:#38bdf8;">⚡</span> Relational Schema &amp; ACID Logging</div>
-          <div><span style="color:#38bdf8;">⚡</span> Serverless Microservice Design</div>
-          <div><span style="color:#38bdf8;">⚡</span> High-Performance Responsive UX</div>
+      <!-- Intermediate -->
+      <div class="edu-item">
+        <div>
+          <div class="edu-title">Intermediate (Class XII) &bull; Science (PCM)</div>
+          <div class="edu-sub">Brightland School, Lucknow (CBSE)</div>
+        </div>
+        <div style="text-align: right;">
+          <span class="badge-pill">2024</span>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 6.8pt; color: #525252; font-weight: 600; margin-top: 1.5px;">Score: 78%</div>
         </div>
       </div>
 
-      <!-- ACADEMIC TIMELINE -->
-      <div class="section-title">Education</div>
-      <div class="side-card">
-        <div class="edu-item">
-          <div class="edu-deg">B.Tech in Computer Science &amp; Engg</div>
-          <div class="edu-inst">G.L. Bajaj Group of Institutions, Mathura</div>
-          <div class="edu-meta">AKTU &bull; 2022 &ndash; 2026 &bull; CGPA: 7.8 / 10</div>
-          <div style="font-size: 5.5pt; color: #64748b; font-family: 'JetBrains Mono', monospace;">Coursework: OS, DBMS, OOP, DSA, Networks</div>
+      <!-- High School -->
+      <div class="edu-item">
+        <div>
+          <div class="edu-title">High School (Class X)</div>
+          <div class="edu-sub">Brightland School, Lucknow (CBSE)</div>
         </div>
-        <div class="edu-item" style="margin-top: 3.5px;">
-          <div class="edu-deg">Intermediate (Class XII) &bull; PCM</div>
-          <div class="edu-inst">Brightland School, Lucknow (CBSE)</div>
-          <div class="edu-meta">Score: 78% &bull; 2024</div>
-        </div>
-        <div class="edu-item" style="margin-top: 3.5px;">
-          <div class="edu-deg">High School (Class X)</div>
-          <div class="edu-inst">Brightland School, Lucknow (CBSE)</div>
-          <div class="edu-meta">Score: 82% &bull; 2022</div>
+        <div style="text-align: right;">
+          <span class="badge-pill">2022</span>
+          <div style="font-family: 'JetBrains Mono', monospace; font-size: 6.8pt; color: #525252; font-weight: 600; margin-top: 1.5px;">Score: 82%</div>
         </div>
       </div>
+    </section>
 
-      <!-- CERTIFICATIONS -->
-      <div class="section-title">Credentials</div>
-      <div class="side-card">
-        <div class="cert-item">
-          <div><b>Python Programming</b> &bull; <span class="cert-meta">Reliance &amp; NSDC (90h)</span></div>
+    <!-- TECHNICAL SKILLS -->
+    <section>
+      <h2 class="section-title">Technical Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-row">
+          <span class="skill-label">Programming Languages:</span>
+          <span class="skill-val">Python, JavaScript (ES6+), SQL, C, HTML5, CSS3</span>
         </div>
-        <div class="cert-item">
-          <div><b>Cisco CyberSecurity &amp; AI</b> &bull; <span class="cert-meta">Learn-a-Thon</span></div>
+        <div class="skill-row">
+          <span class="skill-label">Frameworks &amp; Web:</span>
+          <span class="skill-val">Flask 3.x, Jinja2, RESTful APIs, Chart.js, Bootstrap 5, Tailwind CSS</span>
         </div>
-        <div class="cert-item">
-          <div><b>Upskilling in Python</b> &bull; <span class="cert-meta">IoT Academy</span></div>
+        <div class="skill-row">
+          <span class="skill-label">Databases &amp; ORM:</span>
+          <span class="skill-val">PostgreSQL, Neon DB, SQLite, SQLAlchemy 2.0 (Relational Schemas)</span>
         </div>
-        <div class="cert-item">
-          <div><b>Problem Solving</b> &bull; <span class="cert-meta">HackerRank Verified</span></div>
+        <div class="skill-row">
+          <span class="skill-label">Cloud, AI &amp; DevOps:</span>
+          <span class="skill-val">Gemini Vision AI, Vercel Serverless, Render, Git, GitHub, Linux/Bash</span>
         </div>
       </div>
+    </section>
 
-      <!-- LAUNCHPAD VERIFIED LINKS -->
-      <div class="section-title">Live Launchpad</div>
-      <div class="launchpad-grid">
-        <a href="https://codingwithaman1.github.io/PORTFOLIO/" class="launch-link">
-          PORTFOLIO <span>↗</span>
-        </a>
-        <a href="https://civicconnectweb.onrender.com/" class="launch-link">
-          CIVICCONNECT <span>↗</span>
-        </a>
-        <a href="https://inventra-rho-lac.vercel.app/" class="launch-link">
-          INVENTRA <span>↗</span>
-        </a>
-        <a href="https://wa.me/919690683156" class="launch-link green">
-          WHATSAPP <span>↗</span>
-        </a>
-      </div>
+    <!-- PROJECTS -->
+    <section>
+      <h2 class="section-title">Featured Projects</h2>
 
-    </div>
-
-    <!-- RIGHT COLUMN: MAIN CYBERDECK -->
-    <div class="right-col">
-
-      <!-- EXECUTIVE MANIFEST -->
-      <div class="section-title">System Manifest // Summary</div>
-      <div class="summary-card">
-        Forward-thinking <b>Computer Science Engineer &amp; Full-Stack Developer</b> specializing in resilient backend architectures, transactional database systems, and AI-integrated workflows. Proven track record deploying <b>production applications to Render and Vercel</b> featuring multi-tenant authorization, <b>Google Gemini Multimodal Vision AI pipelines</b>, real-time telemetry, and serverless compute. Dedicated to high-velocity development and scalable, user-centric systems.
-      </div>
-
-      <!-- FEATURED PRODUCTION PROJECTS -->
-      <div class="section-title">Production Deployments &amp; Projects</div>
-
-      <!-- PROJECT 1: CIVICCONNECT -->
-      <div class="project-card">
-        <div class="project-header">
-          <div class="proj-title-wrap">
-            <span class="proj-title">CIVICCONNECT</span>
-            <span class="proj-badge">AI VISION &bull; GOVTECH</span>
-          </div>
-          <div class="proj-actions">
-            <a href="https://civicconnectweb.onrender.com/" class="btn-live">⚡ LIVE APP ↗</a>
-            <a href="https://github.com/CodingWithAman1/CivicConnect" class="btn-code">CODE ↗</a>
-          </div>
+      <!-- Project 1: CivicConnect -->
+      <div class="project-entry">
+        <div class="proj-header">
+          <span class="proj-title">CIVICCONNECT &mdash; AI Civic Action &amp; Grievance Platform</span>
+          <span class="proj-links">
+            <a href="https://civicconnectweb.onrender.com/"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
+            <a href="https://github.com/CodingWithAman1/CivicConnect"><i class="fa-brands fa-github"></i> GitHub</a>
+          </span>
         </div>
-        <div class="proj-tech">Flask 3.x &bull; Google Gemini Multimodal Vision AI &bull; PostgreSQL &bull; Leaflet GPS &bull; Cloudinary</div>
-        <ul class="bullet-list">
-          <li><b>Architected full-lifecycle civic governance platform</b> supporting automated role-based triage workflows across Citizens, NGOs, and Municipal Authorities.</li>
-          <li><b>Integrated Gemini Vision Multimodal AI</b> to analyze uploaded defect imagery, auto-detect infrastructure failures (potholes, garbage, water leaks), and compute severity.</li>
-          <li><b>Engineered Haversine geospatial proximity clustering (300m radius)</b> to merge duplicate reports, reducing municipal processing backlog by 40%.</li>
-          <li><b>Implemented photographic resolution audit engine</b> comparing before/after repair imagery before authorizing ticket resolution.</li>
+        <div class="proj-tech">Flask 3.x &bull; Google Gemini Vision AI &bull; PostgreSQL &bull; Leaflet GPS &bull; Cloudinary &bull; Bootstrap 5</div>
+        <ul class="proj-bullets">
+          <li><b>Architected full-lifecycle civic governance portal</b> with role-based routing across Citizens, NGOs, and Municipal Authorities.</li>
+          <li><b>Integrated Google Gemini Multimodal Vision AI</b> to analyze uploaded complaint photos, auto-detect infrastructure defects (potholes, garbage, water leaks), and compute severity index.</li>
+          <li><b>Engineered Haversine GPS proximity clustering (300m radius)</b> to merge duplicate citizen reports, preventing municipal backlog.</li>
+          <li><b>Implemented photographic resolution audit engine</b> comparing before/after repair photos before authorizing ticket completion.</li>
         </ul>
       </div>
 
-      <!-- PROJECT 2: INVENTRA -->
-      <div class="project-card">
-        <div class="project-header">
-          <div class="proj-title-wrap">
-            <span class="proj-title">INVENTRA</span>
-            <span class="proj-badge">CLOUD ERP &bull; SERVERLESS</span>
-          </div>
-          <div class="proj-actions">
-            <a href="https://inventra-rho-lac.vercel.app/" class="btn-live">⚡ LIVE APP ↗</a>
-            <a href="https://github.com/CodingWithAman1/Inventra" class="btn-code">CODE ↗</a>
-          </div>
+      <!-- Project 2: Inventra -->
+      <div class="project-entry">
+        <div class="proj-header">
+          <span class="proj-title">INVENTRA &mdash; Smart Cloud Inventory &amp; Stock Analytics</span>
+          <span class="proj-links">
+            <a href="https://inventra-rho-lac.vercel.app/"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo</a>
+            <a href="https://github.com/CodingWithAman1/Inventra"><i class="fa-brands fa-github"></i> GitHub</a>
+          </span>
         </div>
         <div class="proj-tech">Flask &bull; SQLAlchemy 2.0 &bull; Neon PostgreSQL &bull; Chart.js &bull; Vercel Serverless WSGI</div>
-        <ul class="bullet-list">
+        <ul class="proj-bullets">
           <li><b>Engineered production warehouse inventory system</b> with real-time stock monitoring, automated low-inventory reorder alerts, and supplier directories.</li>
-          <li><b>Built ACID-compliant relational audit ledger</b> recording immutable delta history for every inventory adjustment with database transaction safety.</li>
-          <li><b>Designed Chart.js analytics engine</b> visualizing warehouse asset valuation, monthly stock deltas, and automated CSV export pipelines.</li>
-          <li><b>Architected zero-configuration serverless deployment on Vercel</b> with Neon cloud PostgreSQL connection pooling.</li>
+          <li><b>Built ACID-compliant relational audit trails</b> recording immutable delta history for every inventory transaction (+/- adjustments).</li>
+          <li><b>Designed interactive Chart.js dashboards</b> delivering warehouse asset valuation, monthly movement graphs, and dynamic CSV exports.</li>
+          <li><b>Architected serverless WSGI microservice on Vercel</b> connected to Neon cloud PostgreSQL with connection pooling.</li>
         </ul>
       </div>
 
-      <!-- PROJECT 3: MYRAIL -->
-      <div class="project-card">
-        <div class="project-header">
-          <div class="proj-title-wrap">
-            <span class="proj-title">MYRAIL</span>
-            <span class="proj-badge">HIGH-CONCURRENCY API</span>
-          </div>
-          <div class="proj-actions">
-            <a href="https://github.com/CodingWithAman1/myrail" class="btn-code">CODE ↗</a>
-          </div>
+      <!-- Project 3: MyRail -->
+      <div class="project-entry">
+        <div class="proj-header">
+          <span class="proj-title">MYRAIL &mdash; Real-Time Indian Railway PNR &amp; Live Train Tracking</span>
+          <span class="proj-links">
+            <a href="https://github.com/CodingWithAman1/myrail"><i class="fa-brands fa-github"></i> GitHub</a>
+          </span>
         </div>
         <div class="proj-tech">JavaScript (ES6+) &bull; RapidAPI &bull; Railway REST APIs &bull; Asynchronous Fetch &bull; Bootstrap 5</div>
-        <ul class="bullet-list">
-          <li><b>Engineered live railway utility web application</b> delivering real-time PNR confirmation status, live train tracking, and station autocomplete lookups.</li>
-          <li><b>Implemented asynchronous API caching and error boundary layer</b> ensuring sub-second responses and resilience against external rate limits.</li>
+        <ul class="proj-bullets">
+          <li><b>Engineered responsive railway tracker web application</b> providing real-time PNR status, live train status, and station autocomplete lookups.</li>
+          <li><b>Implemented asynchronous API caching and error boundary layer</b> ensuring sub-second response times and high availability.</li>
         </ul>
       </div>
 
-      <!-- PROJECT 4: AMANZON -->
-      <div class="project-card">
-        <div class="project-header">
-          <div class="proj-title-wrap">
-            <span class="proj-title">AMANZON</span>
-            <span class="proj-badge">E-COMMERCE UI</span>
-          </div>
-          <div class="proj-actions">
-            <a href="https://github.com/CodingWithAman1/amanzon" class="btn-code">CODE ↗</a>
-          </div>
+      <!-- Project 4: Amanzon -->
+      <div class="project-entry">
+        <div class="proj-header">
+          <span class="proj-title">AMANZON &mdash; Responsive Full-Featured E-Commerce Storefront</span>
+          <span class="proj-links">
+            <a href="https://github.com/CodingWithAman1/amanzon"><i class="fa-brands fa-github"></i> GitHub</a>
+          </span>
         </div>
-        <div class="proj-tech">HTML5 &bull; CSS3 (Modern Flexbox &amp; Grid) &bull; JavaScript (ES6+) &bull; LocalStorage State Engine</div>
-        <ul class="bullet-list">
+        <div class="proj-tech">HTML5 &bull; CSS3 (Modern Flexbox &amp; Grid) &bull; JavaScript (ES6+) &bull; LocalStorage State Management</div>
+        <ul class="proj-bullets">
           <li><b>Developed responsive multi-page e-commerce storefront</b> featuring dynamic product catalog filtering, interactive cart state, and modal checkout.</li>
-          <li><b>Optimized cross-browser rendering pipeline</b> ensuring 100% responsive fidelity across mobile, tablet, and desktop viewports.</li>
+          <li><b>Optimized cross-browser rendering pipeline</b> ensuring 100% responsive fidelity across desktop, tablet, and mobile breakpoints.</li>
         </ul>
       </div>
+    </section>
 
-      <!-- PROFESSIONAL EXPERIENCE -->
-      <div class="section-title">Work Experience</div>
-      <div class="exp-card">
+    <!-- WORK EXPERIENCE -->
+    <section>
+      <h2 class="section-title">Work Experience</h2>
+      <div class="exp-entry">
         <div class="exp-header">
-          <div>
-            <span class="exp-role">Web Development Intern</span> &mdash; 
-            <span class="exp-comp">3 Skills India</span>
-          </div>
-          <div class="exp-date">July 2024 &ndash; Aug 2024 // Remote</div>
+          <div class="exp-title">Web Development Intern &mdash; <span class="exp-company">3 Skills India</span></div>
+          <span class="badge-pill">July 2024 &ndash; Aug 2024 &bull; Remote</span>
         </div>
-        <ul class="bullet-list">
+        <ul class="proj-bullets">
           <li>Modernized frontend web architectures with semantic HTML5, CSS3, and JavaScript, reducing mobile layout shifts.</li>
-          <li>Collaborated with senior engineers on sprint velocity, code reviews, and cross-browser accessibility standards.</li>
+          <li>Collaborated with senior engineers on sprint velocity, code reviews, and cross-device accessibility optimizations.</li>
         </ul>
       </div>
+    </section>
 
-      <!-- ENGINEERING HIGHLIGHTS -->
-      <div class="section-title">Engineering Highlights &amp; Honors</div>
-      <div class="milestones-card">
-        <ul class="bullet-list">
-          <li><b>Cloud Deployments:</b> Architected and maintain 4 live full-stack applications with 99.9% uptime across Vercel and Render.</li>
-          <li><b>Competitive Problem Solving:</b> Solved 150+ Data Structures &amp; Algorithms challenges across LeetCode &amp; HackerRank.</li>
-          <li><b>Smart India Hackathon (SIH) Internal:</b> Conceptualized and prototyped AI-driven civic issue dispatch engine.</li>
-        </ul>
+    <!-- CERTIFICATIONS & ACHIEVEMENTS -->
+    <section>
+      <h2 class="section-title">Certifications &amp; Achievements</h2>
+      <div class="cert-grid">
+        <div class="cert-item">
+          <b>Python Programming</b> &mdash; <span>Reliance Foundation &amp; N.S.D.C. (90h intensive)</span>
+        </div>
+        <div class="cert-item">
+          <b>Cisco CyberSecurity &amp; AI</b> &mdash; <span>AI &amp; Security Learn-a-Thon</span>
+        </div>
+        <div class="cert-item">
+          <b>Smart India Hackathon (SIH) Internal</b> &mdash; <span>AI civic grievance dispatch prototype</span>
+        </div>
+        <div class="cert-item">
+          <b>Algorithmic Problem Solving</b> &mdash; <span>150+ DSA problems solved (LeetCode &amp; HackerRank)</span>
+        </div>
       </div>
-
-    </div>
-
+    </section>
   </div>
 
-  <!-- TECH FOOTER STAMP -->
-  <footer class="tech-footer">
-    <div>PORTFOLIO: CODINGWITHAMAN1.GITHUB.IO/PORTFOLIO // REPO: GITHUB.COM/CODINGWITHAMAN1</div>
-    <div>CONTACT: +91-9690683156 (CALL / WHATSAPP) // CODEWITHAMAN88@GMAIL.COM</div>
+  <!-- FOOTER STAMP -->
+  <footer class="resume-footer">
+    <div>Portfolio: codingwithaman1.github.io/PORTFOLIO &bull; GitHub: github.com/CodingWithAman1</div>
+    <div>Contact: +91-9690683156 &bull; codewithaman88@gmail.com</div>
   </footer>
 
 </div>
 </body>
 </html>
 """
-    html_file = os.path.abspath("futuristic_resume.html")
+    html_file = os.path.abspath("resume_source.html")
     with open(html_file, "w", encoding="utf-8") as f:
         f.write(html_content)
-
-    print(f"Written HTML to {html_file}")
 
     edge_path = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
     abs_pdf = os.path.abspath(output_pdf_path)
@@ -879,27 +570,23 @@ def build_futuristic_resume(output_pdf_path, preview_png_path=None):
         f"--print-to-pdf={abs_pdf}",
         file_url
     ]
-    print(f"Rendering PDF with Edge headless: {' '.join(cmd)}")
-    result = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
-    print("Edge process return code:", result.returncode)
+    subprocess.run(cmd, capture_output=True, text=True, timeout=30)
 
     if not os.path.exists(abs_pdf):
         raise RuntimeError("PDF was not created!")
 
     pdf_doc = pymupdf.open(abs_pdf)
     total_pages = len(pdf_doc)
-    print(f"Total pages generated: {total_pages}")
 
     if preview_png_path:
         page = pdf_doc[0]
         pix = page.get_pixmap(dpi=150)
         pix.save(preview_png_path)
-        print(f"Saved preview image to {preview_png_path}")
 
     return total_pages
 
 if __name__ == "__main__":
     out_pdf = "c:/Users/lenovo/Documents/antigravity/PORTFOLIO/assets/Aman-Sharma-Resume.pdf"
-    preview_png = "c:/Users/lenovo/Documents/antigravity/PORTFOLIO/assets/preview_futuristic.png"
-    pages = build_futuristic_resume(out_pdf, preview_png)
-    print(f"Execution complete. Total Pages: {pages}")
+    preview_png = "c:/Users/lenovo/Documents/antigravity/PORTFOLIO/assets/resume_preview.png"
+    pages = build_resume(out_pdf, preview_png)
+    print(f"Built PDF successfully. Total pages: {pages}")
