@@ -26,12 +26,12 @@
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
     overflow: hidden;
-    font-size: 8.2pt;
-    line-height: 1.34;
+    font-size: 8.1pt;
+    line-height: 1.30;
   }
 
   .page-container {
-    padding: 0.38in 0.44in;
+    padding: 0.32in 0.44in 0.28in 0.44in;
     height: 11in;
     display: flex;
     flex-direction: column;
@@ -41,15 +41,15 @@
   /* Header - Rajat Sahu Signature Style */
   .resume-header {
     border-bottom: 2.5px solid #171717;
-    padding-bottom: 11px;
-    margin-bottom: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 11px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
   }
 
   .header-left h1 {
-    font-size: 22pt;
+    font-size: 21pt;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: -0.5px;
@@ -58,7 +58,7 @@
   }
 
   .header-left .subtitle {
-    font-size: 8.5pt;
+    font-size: 8.4pt;
     font-weight: 700;
     color: #ef4444; /* Signature Red Accent */
     text-transform: uppercase;
@@ -76,11 +76,11 @@
   .header-right {
     text-align: right;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 7pt;
+    font-size: 6.9pt;
     color: #525252;
     display: flex;
     flex-direction: column;
-    gap: 2.5px;
+    gap: 2px;
   }
 
   .header-right a {
@@ -102,7 +102,14 @@
     text-align: center;
   }
 
-  /* Section Title - Monospace Style */
+  /* Section Spacing & Monospace Titles */
+  .resume-section {
+    margin-top: 13px;
+  }
+  .resume-section:first-of-type {
+    margin-top: 0;
+  }
+
   .section-title {
     font-size: 8.2pt;
     font-weight: 700;
@@ -112,20 +119,16 @@
     color: #171717;
     border-bottom: 1.2px solid #d4d4d4;
     padding-bottom: 2.5px;
-    margin-bottom: 6px;
-    margin-top: 7.5px;
+    margin-bottom: 5.5px;
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
-  .section-title:first-of-type {
-    margin-top: 0;
-  }
 
   /* Content Text */
   .objective-text {
-    font-size: 7.6pt;
-    line-height: 1.4;
+    font-size: 7.5pt;
+    line-height: 1.38;
     color: #404040;
     text-align: justify;
   }
@@ -138,34 +141,34 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 5px;
+    margin-bottom: 4.5px;
   }
   .edu-item:last-child {
     margin-bottom: 0;
   }
   .edu-title {
-    font-size: 8pt;
+    font-size: 7.9pt;
     font-weight: 700;
     color: #171717;
   }
   .edu-sub {
-    font-size: 7.2pt;
+    font-size: 7.1pt;
     color: #525252;
     font-weight: 500;
   }
   .edu-details {
-    font-size: 6.8pt;
+    font-size: 6.7pt;
     color: #737373;
     font-family: 'JetBrains Mono', monospace;
   }
   .badge-pill {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 7pt;
+    font-size: 6.9pt;
     font-weight: 600;
     color: #262626;
     background-color: #f5f5f5;
     border: 1px solid #e5e5e5;
-    padding: 2px 8px;
+    padding: 1.5px 7px;
     border-radius: 4px;
     white-space: nowrap;
   }
@@ -174,8 +177,8 @@
   .skills-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4px 14px;
-    font-size: 7.4pt;
+    gap: 3.5px 14px;
+    font-size: 7.3pt;
   }
   .skill-row {
     display: flex;
@@ -191,9 +194,9 @@
     color: #404040;
   }
 
-  /* Project Entries */
+  /* Project Entries with generous spacing */
   .project-entry {
-    margin-bottom: 6px;
+    margin-bottom: 11px;
   }
   .project-entry:last-child {
     margin-bottom: 0;
@@ -202,16 +205,16 @@
     display: flex;
     justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 1.5px;
+    margin-bottom: 1px;
   }
   .proj-title {
-    font-size: 8.2pt;
+    font-size: 8.1pt;
     font-weight: 700;
     color: #171717;
   }
   .proj-links {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 7pt;
+    font-size: 6.9pt;
     font-weight: 600;
   }
   .proj-links a {
@@ -224,9 +227,9 @@
   }
   .proj-tech {
     font-family: 'JetBrains Mono', monospace;
-    font-size: 6.7pt;
+    font-size: 6.6pt;
     color: #525252;
-    margin-bottom: 2px;
+    margin-bottom: 1.5px;
   }
   .proj-bullets {
     list-style: none;
@@ -235,10 +238,10 @@
   .proj-bullets li {
     position: relative;
     padding-left: 11px;
-    font-size: 7.2pt;
-    line-height: 1.34;
+    font-size: 7.1pt;
+    line-height: 1.30;
     color: #404040;
-    margin-bottom: 1.5px;
+    margin-bottom: 1px;
     text-align: justify;
   }
   .proj-bullets li::before {
@@ -247,7 +250,7 @@
     left: 2px;
     color: #ef4444; /* Signature red bullet */
     font-weight: bold;
-    font-size: 9pt;
+    font-size: 8.5pt;
     line-height: 1;
   }
   .proj-bullets li b {
@@ -257,7 +260,7 @@
 
   /* Work Experience */
   .exp-entry {
-    margin-bottom: 5px;
+    margin-bottom: 3px;
   }
   .exp-header {
     display: flex;
@@ -266,7 +269,7 @@
     margin-bottom: 1.5px;
   }
   .exp-title {
-    font-size: 8.2pt;
+    font-size: 8.1pt;
     font-weight: 700;
     color: #171717;
   }
@@ -280,7 +283,7 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 3px 12px;
-    font-size: 7.2pt;
+    font-size: 7.1pt;
     color: #404040;
   }
   .cert-item {
@@ -300,18 +303,18 @@
   .cert-item span {
     color: #737373;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 6.6pt;
+    font-size: 6.5pt;
   }
 
   /* Bottom Stamp */
   .resume-footer {
     border-top: 1px solid #e5e5e5;
-    padding-top: 4px;
-    margin-top: 6px;
+    padding-top: 3.5px;
+    margin-top: 5px;
     display: flex;
     justify-content: space-between;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 6pt;
+    font-size: 5.9pt;
     color: #737373;
   }
 </style>
@@ -361,7 +364,7 @@
     </header>
 
     <!-- PROFESSIONAL OBJECTIVE -->
-    <section>
+    <section class="resume-section">
       <h2 class="section-title">Professional Objective</h2>
       <p class="objective-text">
         Proactive <b>B.Tech Computer Science Engineering student</b> at GL Bajaj Institute of Technology and Management, Greater Noida, with hands-on expertise building production web platforms, transactional database architectures, and AI-integrated workflows. Proven track record deploying live, full-stack cloud applications (<b>CivicConnect</b>, <b>Inventra</b>, <b>MyRail</b>) with automated triage, RESTful APIs, and responsive interfaces. Dedicated to engineering scalable, high-impact software solutions within innovative engineering teams.
@@ -369,7 +372,7 @@
     </section>
 
     <!-- EDUCATION -->
-    <section>
+    <section class="resume-section">
       <h2 class="section-title">Education</h2>
       
       <!-- B.Tech -->
@@ -408,7 +411,7 @@
     </section>
 
     <!-- TECHNICAL SKILLS -->
-    <section>
+    <section class="resume-section">
       <h2 class="section-title">Technical Skills</h2>
       <div class="skills-grid">
         <div class="skill-row">
@@ -431,7 +434,7 @@
     </section>
 
     <!-- PROJECTS -->
-    <section>
+    <section class="resume-section">
       <h2 class="section-title">Featured Projects</h2>
 
       <!-- Project 1: CivicConnect -->
@@ -503,7 +506,7 @@
     </section>
 
     <!-- WORK EXPERIENCE -->
-    <section>
+    <section class="resume-section">
       <h2 class="section-title">Work Experience</h2>
       <div class="exp-entry">
         <div class="exp-header">
@@ -518,7 +521,7 @@
     </section>
 
     <!-- CERTIFICATIONS & ACHIEVEMENTS -->
-    <section>
+    <section class="resume-section">
       <h2 class="section-title">Certifications &amp; Achievements</h2>
       <div class="cert-grid">
         <div class="cert-item">
