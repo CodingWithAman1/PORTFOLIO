@@ -362,6 +362,10 @@ def build_resume(output_pdf_path, preview_png_path=None):
           <a href="https://www.linkedin.com/in/aman-sharma-web/">linkedin.com/in/aman-sharma-web</a>
         </p>
         <p>
+          <i class="fa-solid fa-code icon-red"></i>
+          <a href="https://leetcode.com/u/CodingWithAman1/">leetcode.com/u/CodingWithAman1</a>
+        </p>
+        <p>
           <i class="fa-solid fa-location-dot icon-red"></i>
           Greater Noida &amp; Lucknow, Uttar Pradesh, India
         </p>
@@ -530,16 +534,22 @@ def build_resume(output_pdf_path, preview_png_path=None):
       <h2 class="section-title">Certifications &amp; Achievements</h2>
       <div class="cert-grid">
         <div class="cert-item">
-          <b>Python Programming</b> &mdash; <span>Reliance Foundation &amp; N.S.D.C. (90h intensive)</span>
+          <b>LeetCode Problem Solving</b> &mdash; <span>208+ Problems Solved (116 Easy, 84 Med, 8 Hard) &bull; 50 Days Badge 2026</span>
         </div>
         <div class="cert-item">
-          <b>Cisco CyberSecurity &amp; AI</b> &mdash; <span>AI &amp; Security Learn-a-Thon</span>
+          <b>Python-Flask Web Dev</b> &mdash; <span>Diploma in Website Development &bull; Alison (94% Score &bull; ID: 49008662)</span>
         </div>
         <div class="cert-item">
-          <b>Algorithmic Problem Solving</b> &mdash; <span>200+ DSA problems solved on LeetCode</span>
+          <b>Oracle Dev Gym SQL</b> &mdash; <span>Dual Bronze Trophies for SQL &amp; 42 Quizzes &bull; Oracle Corporation</span>
         </div>
         <div class="cert-item">
-          <b>Cloud Deployments</b> &mdash; <span>4 live full-stack applications on Vercel, Render &amp; Netlify</span>
+          <b>Introduction to HTML5</b> &mdash; <span>University of Michigan &bull; Coursera Certified</span>
+        </div>
+        <div class="cert-item">
+          <b>Python Programming</b> &mdash; <span>Reliance Foundation &amp; N.S.D.C. (90h intensive curriculum)</span>
+        </div>
+        <div class="cert-item">
+          <b>Cisco CyberSecurity &amp; AI</b> &mdash; <span>AI &amp; Security Learn-a-Thon Certified</span>
         </div>
       </div>
     </section>
@@ -555,7 +565,8 @@ def build_resume(output_pdf_path, preview_png_path=None):
 </body>
 </html>
 """
-    html_file = os.path.abspath("resume_source.html")
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    html_file = os.path.join(script_dir, "resume_source.html")
     with open(html_file, "w", encoding="utf-8") as f:
         f.write(html_content)
 

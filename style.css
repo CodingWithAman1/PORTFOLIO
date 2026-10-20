@@ -2053,6 +2053,198 @@ width:min(90%,1400px);
     color:#000;
 
 }
+
+
+/* ==========================================
+   VERIFIED CREDENTIALS & ACHIEVEMENTS
+========================================== */
+.credentials-container{
+    width:min(90%,1400px);
+    margin:10px auto 55px auto;
+}
+
+.credentials-subhead{
+    margin-bottom:28px;
+}
+
+.credentials-tag{
+    font-family:var(--mono);
+    font-size:.8rem;
+    letter-spacing:.25em;
+    color:var(--accent);
+    text-transform:uppercase;
+    margin-bottom:8px;
+}
+
+.credentials-subhead h3{
+    font-family:var(--heading);
+    font-size:clamp(1.5rem, 3vw, 2.3rem);
+    font-weight:700;
+    letter-spacing:-.5px;
+    color:#ffffff;
+    text-transform:uppercase;
+    margin:0;
+}
+
+.credentials-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:22px;
+}
+
+.credential-card{
+    background:#090909;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:16px;
+    padding:28px 26px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    text-decoration:none;
+    color:#ffffff;
+    transition:all .35s ease;
+    position:relative;
+    overflow:hidden;
+}
+
+.credential-card::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:0;
+    width:3px;
+    height:100%;
+    background:transparent;
+    transition:background .35s ease;
+}
+
+.credential-card:hover{
+    border-color:rgba(212,119,57,.5);
+    background:rgba(212,119,57,.04);
+    transform:translateY(-5px);
+    box-shadow:0 16px 40px rgba(0,0,0,.45);
+}
+
+.credential-card:hover::before{
+    background:var(--accent);
+}
+
+.credential-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:16px;
+}
+
+.credential-badge{
+    font-family:var(--mono);
+    font-size:.72rem;
+    letter-spacing:.12em;
+    padding:5px 11px;
+    border-radius:6px;
+    background:rgba(212,119,57,.12);
+    color:var(--accent);
+    border:1px solid rgba(212,119,57,.3);
+    text-transform:uppercase;
+    font-weight:600;
+}
+
+.credential-badge.gold{
+    background:rgba(255,207,92,.12);
+    color:#ffcf5c;
+    border-color:rgba(255,207,92,.3);
+}
+
+.credential-badge.green{
+    background:rgba(94,245,138,.12);
+    color:#5ef58a;
+    border-color:rgba(94,245,138,.3);
+}
+
+.credential-icon{
+    font-size:1.25rem;
+    color:var(--muted);
+    transition:color .35s ease;
+}
+
+.credential-card:hover .credential-icon{
+    color:var(--accent);
+}
+
+.credential-title{
+    font-family:var(--heading);
+    font-size:1.28rem;
+    font-weight:700;
+    color:#ffffff;
+    margin-bottom:8px;
+    line-height:1.25;
+}
+
+.credential-issuer{
+    font-family:var(--mono);
+    font-size:.74rem;
+    color:var(--muted);
+    letter-spacing:.04em;
+    margin-bottom:18px;
+    line-height:1.4;
+}
+
+.credential-meta{
+    border-top:1px solid rgba(255,255,255,.06);
+    padding-top:14px;
+    margin-top:auto;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+}
+
+.credential-stat-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-family:var(--mono);
+    font-size:.74rem;
+    color:#999;
+}
+
+.credential-stat-row b{
+    color:#ffffff;
+    font-weight:600;
+}
+
+.credential-stat-pill{
+    display:inline-flex;
+    flex-wrap:wrap;
+    gap:6px;
+    font-family:var(--mono);
+    font-size:.72rem;
+}
+
+.credential-stat-pill span{
+    padding:3px 8px;
+    border-radius:4px;
+    background:rgba(255,255,255,.06);
+    font-weight:600;
+}
+
+.credential-link{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-family:var(--mono);
+    font-size:.75rem;
+    color:var(--accent);
+    margin-top:6px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    font-weight:600;
+    transition:gap .2s ease;
+}
+
+.credential-card:hover .credential-link{
+    gap:9px;
+}
+
 .cli-section{
     width:100%;
     display:flex;
@@ -2358,7 +2550,7 @@ width:min(90%,1400px);
 
     display:grid;
 
-    grid-template-columns:repeat(5,1fr);
+    grid-template-columns:repeat(6,1fr);
 
     margin-top:30px;
 
@@ -2616,6 +2808,11 @@ section{
 /* ---------- Tablets (<=991px) ---------- */
 @media (max-width:991px){
 
+    .credentials-grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:16px;
+    }
+
     .contact-grid{
         grid-template-columns:repeat(2,1fr);
         gap:1px;
@@ -2714,6 +2911,10 @@ section{
     #clock{
         font-size:.7rem;
         margin-right:10px !important;
+    }
+
+    .credentials-grid{
+        grid-template-columns:1fr;
     }
 
     .contact-grid{
