@@ -46,8 +46,8 @@ def build_resume(output_pdf_path, preview_png_path=None):
   /* Header - Rajat Sahu Signature Style */
   .resume-header {
     border-bottom: 2.5px solid #171717;
-    padding-bottom: 10px;
-    margin-bottom: 11px;
+    padding-bottom: 9px;
+    margin-bottom: 9px;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -109,7 +109,7 @@ def build_resume(output_pdf_path, preview_png_path=None):
 
   /* Section Spacing & Monospace Titles */
   .resume-section {
-    margin-top: 13px;
+    margin-top: 10px;
   }
   .resume-section:first-of-type {
     margin-top: 0;
@@ -201,7 +201,7 @@ def build_resume(output_pdf_path, preview_png_path=None):
 
   /* Project Entries with generous spacing */
   .project-entry {
-    margin-bottom: 11px;
+    margin-bottom: 8.5px;
   }
   .project-entry:last-child {
     margin-bottom: 0;
@@ -287,8 +287,8 @@ def build_resume(output_pdf_path, preview_png_path=None):
   .cert-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 3px 12px;
-    font-size: 7.1pt;
+    gap: 2.5px 12px;
+    font-size: 7.0pt;
     color: #404040;
   }
   .cert-item {
@@ -308,7 +308,7 @@ def build_resume(output_pdf_path, preview_png_path=None):
   .cert-item span {
     color: #737373;
     font-family: 'JetBrains Mono', monospace;
-    font-size: 6.5pt;
+    font-size: 6.4pt;
   }
 
   /* Bottom Stamp */
@@ -538,6 +538,12 @@ def build_resume(output_pdf_path, preview_png_path=None):
         </div>
         <div class="cert-item">
           <b>Python-Flask Web Dev</b> &mdash; <span>Diploma in Website Development &bull; Alison (94% Score &bull; ID: 49008662)</span>
+        </div>
+        <div class="cert-item">
+          <b>IBM Python for AI &amp; Dev</b> &mdash; <span>Python for Data Science, AI &amp; Development &bull; Coursera</span>
+        </div>
+        <div class="cert-item">
+          <b>IBM Web Dev Fundamentals</b> &mdash; <span>Web Development Concepts &amp; Tooling &bull; SkillsBuild</span>
         </div>
         <div class="cert-item">
           <b>Oracle Dev Gym SQL</b> &mdash; <span>Dual Bronze Trophies for SQL &amp; 42 Quizzes &bull; Oracle Corporation</span>

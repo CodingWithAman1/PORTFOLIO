@@ -2088,8 +2088,8 @@ width:min(90%,1400px);
 
 .credentials-grid{
     display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    gap:22px;
+    grid-template-columns:repeat(4, 1fr);
+    gap:18px;
 }
 
 .credential-card{
