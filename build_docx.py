@@ -197,7 +197,7 @@ def create_resume_docx(output_path):
     p_r2.paragraph_format.space_before = Pt(1)
     p_r2.paragraph_format.space_after = Pt(0)
     p_r2.paragraph_format.line_spacing = Pt(9.5)
-    add_contact_line(p_r2, "Email", "codewithaman88@gmail.com", "mailto:codewithaman88@gmail.com")
+    add_contact_line(p_r2, "Email", "shruti.sharma6386@gmail.com", "mailto:shruti.sharma6386@gmail.com")
     p_r2.add_run("  •  ")
     add_contact_line(p_r2, "Portfolio", "codingwithaman1.github.io", "https://codingwithaman1.github.io/PORTFOLIO/")
 
@@ -663,7 +663,7 @@ def create_resume_docx(output_path):
     p_fr.alignment = WD_ALIGN_PARAGRAPH.RIGHT
     p_fr.paragraph_format.space_before = Pt(0)
     p_fr.paragraph_format.space_after = Pt(0)
-    r_fr = p_fr.add_run("Contact: +91-9690683156  •  codewithaman88@gmail.com")
+    r_fr = p_fr.add_run("Contact: +91-9690683156  •  shruti.sharma6386@gmail.com")
     r_fr.font.name = "Consolas"
     r_fr.font.size = Pt(6.0)
     r_fr.font.color.rgb = RGBColor(0x73, 0x73, 0x73)

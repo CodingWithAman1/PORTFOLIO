@@ -347,7 +347,7 @@ def build_resume(output_pdf_path, preview_png_path=None):
         </p>
         <p>
           <i class="fa-solid fa-envelope icon-red"></i>
-          <a href="mailto:codewithaman88@gmail.com">codewithaman88@gmail.com</a>
+          <a href="mailto:shruti.sharma6386@gmail.com">shruti.sharma6386@gmail.com</a>
         </p>
         <p>
           <i class="fa-solid fa-globe icon-red"></i>
@@ -564,7 +564,7 @@ def build_resume(output_pdf_path, preview_png_path=None):
   <!-- FOOTER STAMP -->
   <footer class="resume-footer">
     <div>Portfolio: codingwithaman1.github.io/PORTFOLIO &bull; GitHub: github.com/CodingWithAman1</div>
-    <div>Contact: +91-9690683156 &bull; codewithaman88@gmail.com</div>
+    <div>Contact: +91-9690683156 &bull; shruti.sharma6386@gmail.com</div>
   </footer>
 
 </div>
